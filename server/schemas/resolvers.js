@@ -1,4 +1,5 @@
 const { Project, Board, Column, Card, Label } = require("../models");
+var mongoose = require("mongoose");
 const resolvers = {
   Query: {
     projects: async () => {
@@ -61,9 +62,19 @@ const resolvers = {
       );
     },
 
+    deleteColumn: async (parent, args) => {
+      await Column.findByIdAndDelete(args.columnId);
+
+      return await Board.findByIdAndUpdate( args.boardId,
+        { $pull: { columnArray: args.columnId } },
+        { new: true }).populate({
+        path: "columnArray",
+        populate: { path: "cardArray" },
+      });
+    },
+
     // CARD MUTATIONS
     addCard: async (parent, args) => {
-      console.log("reached");
       const card = await Card.create({
         content: args.content,
       });
@@ -77,7 +88,40 @@ const resolvers = {
       return await Board.findById(args.boardId).populate({
         path: "columnArray",
         populate: { path: "cardArray" },
-      })
+      });
+    },
+
+    deleteCard: async (parent, args) => {
+      await Column.findByIdAndUpdate(
+        args.columnId,
+        { $pull: { cardArray: args.cardId } },
+        { new: true }
+      );
+      await Card.findByIdAndDelete(args.cardId);
+      return await Board.findById(args.boardId).populate({
+        path: "columnArray",
+        populate: { path: "cardArray" },
+      });
+    },
+
+    incDecVote: async (parent, args) => {
+      if (args.votedBool) {
+        await Card.findByIdAndUpdate(
+          args.cardId,
+          { $pull: { voterArray: args.voterName } },
+          { new: true }
+        );
+      } else {
+        await Card.findByIdAndUpdate(
+          args.cardId,
+          { $addToSet: { voterArray: args.voterName } },
+          { new: true }
+        );
+      }
+      return await Board.findById(args.boardId).populate({
+        path: "columnArray",
+        populate: { path: "cardArray" },
+      });
     },
 
     // COMMENT MUTATIONS

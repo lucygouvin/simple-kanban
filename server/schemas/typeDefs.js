@@ -49,8 +49,11 @@ type Mutation{
     addProject(name: String!): Project
     addBoard (projectId: ID!, name: String, private: Boolean): Project
     addColumn (boardId: ID!, title: String!): Board
+    deleteColumn (boardId: ID!, columnId: ID!): Board
     addCard (boardId: ID!, columnId:ID!, content: String!): Board
+    deleteCard (boardId: ID!, columnId: ID!, cardId: ID!): Board
     addComment (boardId: ID!, columnId: ID!, cardId: ID!, content: String!): Board
+    incDecVote (boardId: ID!, cardId: ID!, votedBool: Boolean, voterName: String!): Board
 }
 
 `;
