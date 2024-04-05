@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />
       },  {
-        path: '/event/:boardId',
+        path: '/board/:boardId',
         element: <Board />
       },
       
