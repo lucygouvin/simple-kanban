@@ -33,7 +33,25 @@ export default function Board() {
   console.log(data);
 
   return <div>{loading ? <p>Loading...</p> : <main>
-    <h1>Board Page</h1>
+        <h1>Board Page</h1>
+
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <div id="g_id_onload"
+     data-client_id="77166529193-0ia7megl5lvnsjh3763rj74vps39a321.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-login_uri="http://localhost:3001"
+     data-auto_prompt="false">
+</div>
+
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div>
     <p>{data.board.name}</p>
     {data.board.columnArray.map(function (columnInfo, index) {
         return <Column column={{columnInfo, boardId}} key={index}/>

@@ -10,7 +10,8 @@ const resolvers = {
       return await Project.findById(args.id).populate({ path: "boardArray" });
     },
 
-    board: async (parent, args) => {
+    board: async (parent, args, context) => {
+    
       return await Board.findById(args.id).populate({
         path: "columnArray",
         populate: { path: "cardArray" },
