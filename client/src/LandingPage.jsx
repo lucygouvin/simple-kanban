@@ -7,7 +7,9 @@ export function LandingPage() {
       <h1>Landing Page!</h1>
       <GoogleLogin 
         onSuccess={(credentialResponse) => {
+            console.log(credentialResponse)
           const decoded = jwtDecode(credentialResponse.credential)
+          localStorage.setItem("id_token", credentialResponse.credential)
           console.log(decoded);
         }}
         onError={() => {

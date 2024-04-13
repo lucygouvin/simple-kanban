@@ -11,7 +11,7 @@ const resolvers = {
     },
 
     board: async (parent, args, context) => {
-    
+    console.log("CONTEXT", context.user)
       return await Board.findById(args.id).populate({
         path: "columnArray",
         populate: { path: "cardArray" },
