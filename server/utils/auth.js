@@ -32,6 +32,7 @@ module.exports = {
     return req;
   },
   // Commit to heroku
+  // commit heroku
 //   signToken({ name, email, _id, event }) {
 //     const payload = { name, email, _id};
 
