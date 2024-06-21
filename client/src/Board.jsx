@@ -35,7 +35,7 @@ export default function Board() {
   return <div>{loading ? <p>Loading...</p> : <main>
         <h1>Board Page</h1>
 
-    <script src="https://accounts.google.com/gsi/client" async></script>
+    {/* <script src="https://accounts.google.com/gsi/client" async></script>
     <div id="g_id_onload"
      data-client_id="77166529193-0ia7megl5lvnsjh3763rj74vps39a321.apps.googleusercontent.com"
      data-context="signin"
@@ -51,7 +51,7 @@ export default function Board() {
      data-text="signin_with"
      data-size="large"
      data-logo_alignment="left">
-</div>
+</div> */}
     <p>{data.board.name}</p>
     {data.board.columnArray.map(function (columnInfo, index) {
         return <Column column={{columnInfo, boardId}} key={index}/>

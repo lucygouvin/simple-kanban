@@ -75,9 +75,13 @@ const resolvers = {
     },
 
     // CARD MUTATIONS
-    addCard: async (parent, args) => {
+    addCard: async (parent, args, context) => {
+      let authorName = "Anon"
+      if (context.user) {
+        authorName = context.user.given_name
+      } 
       const card = await Card.create({
-        content: args.content,
+        content: args.content, author: authorName
       });
 
       await Column.findByIdAndUpdate(
