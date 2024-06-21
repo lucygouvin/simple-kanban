@@ -143,4 +143,12 @@ mutation AddColumn($boardId: ID!, $title: String!) {
       }
       privateToOrg
     }
-  }`;
+  }`
+  
+export const ADD_PROJECT = gql`
+mutation AddProject($name: String!) {
+  addProject(name: $name) {
+    _id
+    name
+  }
+}`;
