@@ -35,12 +35,16 @@ export default function Card({ card: { cardInfo }, card: { boardId }, card: { co
     }catch(deleteCardError){
         console.error("Unable to delete card", deleteCardError)
     }
+
   }
+
+  console.log(cardInfo)
+
 
   return (
     <div>
       <p>
-        {cardInfo.content} Votes: {cardInfo.voteCount}
+        {cardInfo.content} by {cardInfo.author} Votes: {cardInfo.voteCount}
       </p>
       {votedBool ? (
         <button onClick={saveChangeVote}>UnVote</button>

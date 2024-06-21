@@ -3,7 +3,7 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
-// import Header from './Header';
+import Header from './Header';
 // import Footer from './Footer';
 
 
@@ -35,6 +35,7 @@ const App = () => {
   return (
     <GoogleOAuthProvider clientId='77166529193-0ia7megl5lvnsjh3763rj74vps39a321.apps.googleusercontent.com'>
     <ApolloProvider client={client}>
+      <Header />
       <Outlet />
     </ApolloProvider>
     </GoogleOAuthProvider> 
