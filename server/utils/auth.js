@@ -31,6 +31,7 @@ module.exports = {
 
     return req;
   },
+
 //   signToken({ name, email, _id, event }) {
 //     const payload = { name, email, _id};
 
