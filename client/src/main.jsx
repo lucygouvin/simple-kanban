@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import LandingPage from './LandingPage.jsx'
 import Board from './Board.jsx'
+import Project from './Project.jsx'
 
 const router = createBrowserRouter([
   {
@@ -16,8 +17,12 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />
       },  {
-        path: '/board/:boardId',
+        path: '/project/:projectId/board/:boardId',
         element: <Board />
+      },
+      {
+        path: '/project/:projectId',
+        element: <Project />
       },
       
     ]

@@ -2,12 +2,13 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router-dom";
 import {useState} from 'react';
 import { BOARD } from "./utils/queries";
-import {ADD_COL} from './utils/mutations';
+import {ADD_COL, DEL_BOARD} from './utils/mutations';
 
 import Column from './Column'
 
 export default function Board() {
   const { boardId } = useParams();
+  const {projectId} = useParams();
 
   const { loading, data } = useQuery(BOARD, {
     variables: { boardId: boardId },
@@ -30,7 +31,22 @@ export default function Board() {
     setColTitle('')
   }
 
-  console.log(data);
+  const [deleteBoard, {deleteBoardError}] = useMutation(DEL_BOARD);
+  const saveDeleteBoard = async() => {
+    try{
+      const {data} = deleteBoard({
+        variables: {
+          boardId,
+          projectId
+        }
+      })
+      window.location.href = `/project/${projectId}`;
+    }catch(deleteBoardError){
+      console.error("Unable to delete board", deleteBoardError)
+    }
+  }
+// console.log(boardId)
+//   console.log(data);
 
   return <div>{loading ? <p>Loading...</p> : <main>
         <h1>Board Page</h1>
@@ -53,6 +69,7 @@ export default function Board() {
      data-logo_alignment="left">
 </div> */}
     <p>{data.board.name}</p>
+    <button onClick={(saveDeleteBoard)}>Delete Board</button>
     {data.board.columnArray.map(function (columnInfo, index) {
         return <Column column={{columnInfo, boardId}} key={index}/>
     })}

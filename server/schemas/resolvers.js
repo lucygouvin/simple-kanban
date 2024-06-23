@@ -11,7 +11,6 @@ const resolvers = {
     },
 
     board: async (parent, args, context) => {
-    console.log("CONTEXT", context.user)
       return await Board.findById(args.id).populate({
         path: "columnArray",
         populate: { path: "cardArray" },
@@ -44,7 +43,18 @@ const resolvers = {
         },
         { new: true }
       ).populate("boardArray");
-      return project;
+      return board;
+    },
+
+    deleteBoard: async(parent, args) => {
+      await Board.findByIdAndDelete(args.boardId);
+
+      return await Project.findByIdAndUpdate(args.projectId,
+        {$pull: {boardArray: args.boardId}},
+        {new: true}).populate({
+          path: "boardArray"
+        })
+
     },
 
     // COLUMN MUTATIONS

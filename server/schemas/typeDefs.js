@@ -47,7 +47,8 @@ type Query{
 
 type Mutation{
     addProject(name: String!): Project
-    addBoard (projectId: ID!, name: String, private: Boolean): Project
+    addBoard (projectId: ID!, name: String, private: Boolean): Board
+    deleteBoard (boardId: ID!, projectId: ID!): Project
     addColumn (boardId: ID!, title: String!): Board
     deleteColumn (boardId: ID!, columnId: ID!): Board
     addCard (boardId: ID!, columnId:ID!, content: String!): Board

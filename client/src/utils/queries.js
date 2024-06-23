@@ -26,4 +26,17 @@ export const BOARD = gql `query Board($boardId: ID!) {
         }
       }
     }
-  }`;
+  }`
+
+  export const PROJECT = gql`
+  query Project($projectId: ID!) {
+    project(id: $projectId) {
+      name
+      _id
+      boardArray {
+        name
+        _id
+      }
+    }
+    }
+  `;

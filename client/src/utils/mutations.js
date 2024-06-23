@@ -143,4 +143,32 @@ mutation AddColumn($boardId: ID!, $title: String!) {
       }
       privateToOrg
     }
-  }`;
+  }`
+  
+export const ADD_PROJECT = gql`
+mutation AddProject($name: String!) {
+  addProject(name: $name) {
+    _id
+    name
+  }
+}`
+
+export const ADD_BOARD = gql`
+mutation AddBoard($projectId: ID!, $name: String) {
+  addBoard(projectId: $projectId, name: $name) {
+    _id
+  }
+}`
+
+export const DEL_BOARD = gql`
+mutation DeleteBoard($boardId: ID!, $projectId: ID!) {
+  deleteBoard(boardId: $boardId, projectId: $projectId) {
+    _id
+    name
+    boardArray {
+      _id
+      name
+      privateToOrg
+    }
+  }
+}`;
