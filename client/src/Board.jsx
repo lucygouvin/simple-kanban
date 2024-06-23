@@ -29,7 +29,7 @@ export default function Board() {
     }
     setColTitle('')
   }
-
+console.log(boardId)
   console.log(data);
 
   return <div>{loading ? <p>Loading...</p> : <main>

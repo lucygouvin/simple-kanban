@@ -151,4 +151,11 @@ mutation AddProject($name: String!) {
     _id
     name
   }
+}`
+
+export const ADD_BOARD = gql`
+mutation AddBoard($projectId: ID!, $name: String) {
+  addBoard(projectId: $projectId, name: $name) {
+    _id
+  }
 }`;
