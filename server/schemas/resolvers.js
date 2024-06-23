@@ -46,6 +46,17 @@ const resolvers = {
       return board;
     },
 
+    deleteBoard: async(parent, args) => {
+      await Board.findByIdAndDelete(args.boardId);
+
+      return await Project.findByIdAndUpdate(args.projectId,
+        {$pull: {boardArray: args.boardId}},
+        {new: true}).populate({
+          path: "boardArray"
+        })
+
+    },
+
     // COLUMN MUTATIONS
     addColumn: async (parent, args) => {
       const col = await Column.create({

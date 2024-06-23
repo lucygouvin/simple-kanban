@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />
       },  {
-        path: '/board/:boardId',
+        path: '/project/:projectId/board/:boardId',
         element: <Board />
       },
       {

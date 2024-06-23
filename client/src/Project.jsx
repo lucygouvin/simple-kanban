@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { PROJECT } from "./utils/queries";
-import { ADD_BOARD } from "./utils/mutations";
+import { ADD_BOARD, DEL_BOARD } from "./utils/mutations";
 
 export default function Project() {
   const { projectId } = useParams();
@@ -23,12 +23,27 @@ export default function Project() {
         },
       });
       const boardId = newBoard.data.addBoard._id;
-      window.location.href = `/board/${boardId}`;
+      window.location.href = `/project/${projectId}/board/${boardId}`;
     } catch (addBoardError) {
       console.error("Unable to add board", addBoardError);
     }
     setBoardName("");
   };
+
+  const [deleteBoard, {deleteBoardError}] = useMutation(DEL_BOARD);
+  const saveDeleteBoard = async(boardId) => {
+    try{
+      const {data} = deleteBoard({
+        variables: {
+          boardId,
+          projectId
+        }
+      })
+    }catch(deleteBoardError){
+      console.error("Unable to delete board", deleteBoardError)
+    }
+  }
+
 
   return (
     <div>
@@ -40,9 +55,13 @@ export default function Project() {
           <h2>{data.project.name}</h2>
           {data.project.boardArray.map(function (boardInfo, index) {
             return (
-              <a href={`/board/${boardInfo._id}`}>
+              <> 
+              <a href={`/project/${projectId}/board/${boardInfo._id}`}>
                 <p>{boardInfo.name}</p>
               </a>
+              <button onClick={()=>saveDeleteBoard(boardInfo._id)}>Delete Board</button>
+              </>
+             
             );
           })}
           <div>

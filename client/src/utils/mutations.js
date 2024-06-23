@@ -158,4 +158,17 @@ mutation AddBoard($projectId: ID!, $name: String) {
   addBoard(projectId: $projectId, name: $name) {
     _id
   }
+}`
+
+export const DEL_BOARD = gql`
+mutation DeleteBoard($boardId: ID!, $projectId: ID!) {
+  deleteBoard(boardId: $boardId, projectId: $projectId) {
+    _id
+    name
+    boardArray {
+      _id
+      name
+      privateToOrg
+    }
+  }
 }`;
